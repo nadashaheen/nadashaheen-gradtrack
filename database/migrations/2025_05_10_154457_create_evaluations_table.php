@@ -15,9 +15,8 @@ return new class extends Migration
     {
         Schema::create('evaluations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('project_id')->constrained();
-            $table->foreignId('evaluator_id')->constrained('users');
-            $table->string('phase');
+            $table->foreignId('project_id')->constrained()->onDelete('cascade');
+            $table->foreignId('supervisor_id')->constrained('users')->onDelete('cascade');
             $table->integer('score');
             $table->text('feedback')->nullable();
             $table->timestamps();

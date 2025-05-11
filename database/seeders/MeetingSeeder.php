@@ -3,10 +3,11 @@
 namespace Database\Seeders;
 
 use App\Models\Meeting;
-use App\Models\ProjectStage;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 
+use Illuminate\Database\Seeder;
+use App\Models\User;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 class MeetingSeeder extends Seeder
 {
     /**

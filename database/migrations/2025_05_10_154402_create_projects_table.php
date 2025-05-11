@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->foreignId('student_id')->constrained('users');
             $table->foreignId('supervisor_id')->constrained('users');
+            $table->enum('status', ['proposed', 'in_progress', 'completed'])->default('proposed');
             $table->timestamps();
         });
     }

@@ -3,8 +3,11 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Database\Factories\ProjectStageFactory;
 use Illuminate\Database\Seeder;
-
+use App\Models\User;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -17,11 +20,13 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             ProjectSeeder::class,
-            ProjectPhaseSeeder::class,
+            ProjectStageSeeder::class,
             SubmissionSeeder::class,
             CommentSeeder::class,
             MeetingSeeder::class,
-            PhaseEvaluationSeeder::class,
+            StageEvaluationSeeder::class,
+            RolePermissionSeeder::class,
         ]);
     }
 }
+

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ProjectStage extends Model
 {
     protected $fillable = [
-        'project_id', 'stage_name', 'status', 'document_path',
+        'project_id', 'name', 'status', 'document_path',
     ];
 
     public function project()

@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('project_stages', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('project_id')->constrained();
-            $table->string('stage_name');
+            $table->foreignId('project_id')->constrained()->onDelete('cascade');
+            $table->string('name');
             $table->enum('status', ['pending', 'under_review', 'approved', 'rejected'])->default('pending');
             $table->timestamps();
         });

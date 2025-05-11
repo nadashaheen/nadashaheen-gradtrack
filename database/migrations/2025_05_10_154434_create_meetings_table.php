@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('project_id')->constrained();
             $table->string('title');
-            $table->datetime('meeting_time');
+            $table->time('meeting_time');
+            $table->date('meeting_date');
             $table->string('meeting_link');
             $table->timestamps();
         });

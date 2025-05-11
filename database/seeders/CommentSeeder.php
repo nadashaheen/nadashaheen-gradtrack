@@ -3,11 +3,12 @@
 namespace Database\Seeders;
 
 use App\Models\Comment;
-use App\Models\Meeting;
-use App\Models\Submission;
+
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-
+use App\Models\User;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 class CommentSeeder extends Seeder
 {
     /**
