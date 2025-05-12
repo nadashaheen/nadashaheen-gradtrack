@@ -21,7 +21,10 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
+    public function getAuthIdentifierName()
+    {
+        return 'stdNo';
+    }
     // العلاقات
     public function projects()
     {

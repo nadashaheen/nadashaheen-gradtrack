@@ -39,6 +39,11 @@ Route::post('/logout', function () {
     return view('index');
 })->name('logout')->middleware('auth');
 
+
+
+Route::get('/showDashbord', [UserController::class, 'showDashbord'])->name('showDashbord');
+
+
 //Route::middleware(['auth', 'role:student'])->get('/dashboards/student', function () {
 //    return view('dashboards.student');
 //})->name('student.dashboards');

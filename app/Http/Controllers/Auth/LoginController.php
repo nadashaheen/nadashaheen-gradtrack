@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -40,14 +41,28 @@ class LoginController extends Controller
 
     }
 
+    public function username()
+    {
+        return 'stdNo';
+    }
 
     public function login(Request $request)
     {
-        $credentials = $request->only('stdNo', 'password');
+        // التحقق من البيانات المدخلة
+        $credentials = $request->validate([
+            'stdNo' => ['required'],  // التأكد من أن رقم الطالب موجود
+            'password' => ['required'], // التأكد من وجود كلمة المرور
+        ]);
 
-        if (Auth::attempt($credentials)) {
+        // إضافة حقل stdNo كحقل المستخدم في المصادقة
+        $credentials['stdNo'] = $request->stdNo;  // إضافة رقم الطالب إلى البيانات
+
+        // محاولة تسجيل الدخول باستخدام Auth
+
+        if (Auth::attempt(['stdNo' => $credentials['stdNo'], 'password' => $request->password])) {
             $user = Auth::user();
-            // Redirect based on role
+
+            // إعادة التوجيه بناءً على الدور
             if ($user->role === 'student') {
                 return view('student.dashboard');
             } elseif ($user->role === 'supervisor') {
@@ -55,8 +70,10 @@ class LoginController extends Controller
             }
         }
 
+        // في حال فشل المصادقة
         return back()->withErrors(['stdNo' => 'Invalid credentials']);
     }
+
 
     protected function authenticated(Request $request, $user)
     {

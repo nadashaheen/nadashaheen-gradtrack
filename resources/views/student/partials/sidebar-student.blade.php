@@ -6,7 +6,7 @@
 
     <ul lass="d-flex flex-column ">
         <li>
-            <a class="sidebar-link active d-flex align-items-center fs-16 primary-color p-10" href="#"
+            <a class="sidebar-link active d-flex align-items-center fs-16 primary-color p-10" href="{{route('showDashbord')}}"
                data-page="studentdashboard">
                 <i class="fa-regular fa-chart-bar fa-fw"></i>
                 <span class="sidebar-text">Dashboard</span>
