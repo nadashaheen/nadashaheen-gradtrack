@@ -8,33 +8,62 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+    public function checkIfLogin(){
+        $user = Auth::user();
+
+        if (Auth::check() && $user->role === 'student'){
+//dd($user->role);
+            return view('student.dashboard');
+
+        }elseif (Auth::check() && $user->role === 'supervisor'){
+//            dd($user->role);
+            return view('supervisor.supervisor');
+        }else{
+            return view('index');
+        }
+    }
+
+
     public function showLoginForm()
     {
-        return view('login');
+        $user = Auth::user();
+
+        if (Auth::check() && $user->role === 'student'){
+            return view('student.dashboard');
+
+        }elseif (Auth::check() && $user->role === 'supervisor'){
+            return view('supervisor.supervisor');
+        }else{
+            return view('login');
+        }
+
+
     }
+
+
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->only('stdNo', 'password');
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
             // Redirect based on role
             if ($user->role === 'student') {
-                return redirect()->route('student.dashboard');
+                return view('student.dashboard');
             } elseif ($user->role === 'supervisor') {
-                return redirect()->route('supervisor.dashboard');
+                return view('supervisor.supervisor');
             }
         }
 
-        return back()->withErrors(['email' => 'Invalid credentials']);
+        return back()->withErrors(['stdNo' => 'Invalid credentials']);
     }
 
     protected function authenticated(Request $request, $user)
     {
         if ($user->hasRole('student')) {
-            return redirect('/dashboard/student');
+            return redirect('/student/dashboard');
         } elseif ($user->hasRole('supervisor')) {
-            return redirect('/dashboard/supervisor');
+            return redirect('/supervisor/supervisor');
         } else {
             return abort(403, 'Unauthorized');
         }
