@@ -1,0 +1,158 @@
+@extends('layouts.master-supervisor')
+@section('title', 'Project Review')
+
+@section('content')
+    <div class="project-evaluation">
+        <div class="container">
+            <div class="header p-25">
+                <h4 class="primary-color fw-bold fs-20">
+                    Project Evaluation & Review
+                </h4>
+            </div>
+            <div class="row gap-4">
+                <div class="col-lg-12">
+                    <div class="card p-10">
+                        <div class="card-body p-10">
+                            <h5 class="card-title fw-bold">Student Info</h5>
+                        </div>
+
+                        <div class="card-body p-10">
+                            <div class="each-student-info d-flex align-items-center mb-2 gap-2">
+                                <p class="card-text mb-0">Name:</p>
+                                <p class="card-text">John Doe</p>
+                            </div>
+
+                            <div class="each-student-info d-flex align-items-center mb-2 gap-2">
+                                <p class="card-text mb-0">Project Title:</p>
+                                <p class="card-text">AI Research Project</p>
+                            </div>
+
+                            <div class="each-student-info d-flex align-items-center mb-2 gap-2">
+                                <p class="card-text mb-0">Submission Date:</p>
+                                <p class="card-text">2023-10-10</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="card p-10">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">Uploaded Files</h5>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="each-phase d-flex align-items-center justify-content-between">
+                                <p class="card-text">Research_Proposal.pdf</p>
+                                <div class="d-flex align-items-center gap-2">
+                                    <i class="card-text fas fa-download text-primary fs-5" title="Download"></i>
+                                    <i class="card-text fas fa-check text-success fs-5" title="Approve"></i>
+                                    <i class="card-text fas fa-times text-danger fs-5" title="Reject"></i>
+                                </div>
+                            </div>
+
+                            <div class="each-phase d-flex align-items-center justify-content-between">
+                                <p class="card-text">Development_Phase.zip</p>
+                                <div class="d-flex align-items-center gap-2">
+                                    <i class="card-text fas fa-download text-primary fs-5" title="Download"></i>
+                                    <i class="card-text fas fa-check text-success fs-5" title="Approve"></i>
+                                    <i class="card-text fas fa-times text-danger fs-5" title="Reject"></i>
+                                </div>
+                            </div>
+
+                            <div class="each-phase d-flex align-items-center justify-content-between">
+                                <p class="card-text">Initil_document.docs</p>
+                                <div class="d-flex align-items-center gap-2">
+                                    <i class="card-text fas fa-download text-primary fs-5" title="Download"></i>
+                                    <i class="card-text fas fa-check text-success fs-5" title="Approve"></i>
+                                    <i class="card-text fas fa-times text-danger fs-5" title="Reject"></i>
+                                </div>
+                            </div>
+
+                            <div class="each-phase d-flex align-items-center justify-content-between">
+                                <p class="card-text">Final Report.zip</p>
+                                <div class="d-flex align-items-center gap-2">
+                                    <i class="card-text fas fa-download text-primary fs-5" title="Download"></i>
+                                    <i class="card-text fas fa-check text-success fs-5" title="Approve"></i>
+                                    <i class="card-text fas fa-times text-danger fs-5" title="Reject"></i>
+                                </div>
+                            </div>
+
+                            <div class="each-phase d-flex align-items-center justify-content-between">
+                                <p class="card-text">proposalProject.ppt</p>
+                                <div class="d-flex align-items-center gap-2">
+                                    <i class="card-text fas fa-download text-primary fs-5" title="Download"></i>
+                                    <i class="card-text fas fa-check text-success fs-5" title="Approve"></i>
+                                    <i class="card-text fas fa-times text-danger fs-5" title="Reject"></i>
+                                </div>
+                            </div>
+
+                            <div class="each-phase d-flex align-items-center justify-content-between">
+                                <p class="card-text">UIUX_design.zip</p>
+                                <div class="d-flex align-items-center gap-2">
+                                    <i class="card-text fas fa-download text-primary fs-5" title="Download"></i>
+                                    <i class="card-text fas fa-check text-success fs-5" title="Approve"></i>
+                                    <i class="card-text fas fa-times text-danger fs-5" title="Reject"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="card p-10">
+                        <div class="card-body">
+                            <div class="each-phase d-flex align-items-center justify-content-between">
+                                <p class="card-text fs-20 fw-bold ">UI/UX Phase</p>
+                                <form class="mt-sm-10">
+                                    <button type="submit" class="btn complete-btn white-color">
+                                        complete
+                                    </button>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="project-comment-container m-10">
+                        <div class="card p-10">
+                            <div class="card-header">
+                                <h5 class="card-title fw-bold">Supervisor Comments</h5>
+                            </div>
+                            <div class="mt-2 supervisor-textarea-container">
+                                <textarea id="supervisorReply" rows="4" class="form-control w-100"
+                                          placeholder="Write your reply here..."></textarea>
+
+                                <i class="fas fa-paper-plane fs-16 " title="Send"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 mb-20">
+                    <div class="card p-10">
+                        <div class="card-body p-10">
+                            <h5 class="card-title fw-bold">Evaluation of the final project</h5>
+                        </div>
+
+                        <div class="card-body p-10">
+                            <div class="each-phase d-flex mb-2 gap-2 flex-column">
+                                <p class="card-text mb-0">Final_Project_Research.pdf</p>
+                                <p class="card-text mb-0">Final_Project.zip</p>
+                                <p class="card-text mb-0">Report.docs</p>
+                            </div>
+
+                            <div class="each-phase d-flex align-items-center mb-2 gap-2">
+                                <form class="d-flex w-100 gap-2">
+                                    <input type="number" class="form-control" placeholder="Rate (1-100)" min="0"
+                                           max="100" required />
+                                    <button type="submit" class="btn main-btn ">Done</button>
+                                </form>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
