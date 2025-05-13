@@ -41,8 +41,9 @@ class UserController extends Controller
 
     public function showDashbord(){
         $id = Auth::id();
-
         $user = User::find($id);
+        dd('dash');
+
         return view('student.dashboard' , compact('user'));
     }
     /**
