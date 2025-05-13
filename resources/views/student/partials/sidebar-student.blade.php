@@ -6,7 +6,7 @@
 
     <ul lass="d-flex flex-column ">
         <li>
-            <a class="sidebar-link active d-flex align-items-center fs-16 primary-color p-10" href="{{route('showDashbord')}}"
+            <a class="sidebar-link active d-flex align-items-center fs-16 primary-color p-10" href="{{ url('/student/dashboard') }}"
                data-page="studentdashboard">
                 <i class="fa-regular fa-chart-bar fa-fw"></i>
                 <span class="sidebar-text">Dashboard</span>
@@ -52,6 +52,14 @@
                 <i class="fa-solid fa-circle-plus fa-fw"></i>
                 <span class="sidebar-text">Add Final Project</span>
                 <span class="custom-tooltip">Add Final Project</span>
+            </a>
+        </li>
+
+        <li>
+            <a class="sidebar-link d-flex align-items-center fs-16 primary-color p-10" href="{{route('addProjectIdea')}}" data-page="finalproject">
+                <i class="fa-solid fa-circle-plus fa-fw"></i>
+                <span class="sidebar-text">Add Project Idea</span>
+                <span class="custom-tooltip">Add Project Idea</span>
             </a>
         </li>
         <li class="mt-auto logout">

@@ -41,7 +41,9 @@ Route::post('/logout', function () {
 
 
 
-Route::get('/showDashbord', [UserController::class, 'showDashbord'])->name('showDashbord');
+Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+Route::get('/addProjectIdea', [\App\Http\Controllers\DashboardController::class, 'addProjectIdea'])->name('addProjectIdea');
+
 
 
 //Route::middleware(['auth', 'role:student'])->get('/dashboards/student', function () {

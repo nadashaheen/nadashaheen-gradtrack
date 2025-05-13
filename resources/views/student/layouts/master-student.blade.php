@@ -39,6 +39,6 @@
 @include('student.partials.footer')
 
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('js/studentdashboard.js') }}"></script>
+{{--<script src="{{ asset('js/studentdashboard.js') }}"></script>--}}
 </body>
 </html>
