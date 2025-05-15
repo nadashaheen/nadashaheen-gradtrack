@@ -1,20 +1,13 @@
-@extends('layouts.master-student')
+@extends('student.layouts.master-student')
 @section('title', 'Project Details')
 
 @section('content')
-    <div class="project-detalis-container"></div>
-    <div class="container">
-        <div class="header p-20">
-            <div class="d-flex align-items-center gap-1">
-                <p class="fs-18 primary-color mb-0">Home></p>
-                <span>Project Details</span>
-            </div>
-        </div>
+
 
         <div class="row mt-20">
             <div class="col-lg-12">
                 <div>
-                    <div class="primary-color fw-bold fs-20">Project Title</div>
+                    <div class="primary-color fw-bold fs-20">{{$project->title}}</div>
                     <div>
                         <p>
                             Current Status: <span class="stauts-span"> In Progress</span>

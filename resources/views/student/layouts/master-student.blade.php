@@ -30,6 +30,15 @@
             <h3 class="text-center p-relative mb-0 fs-sm-20">Welcome,</h3>
             <span class="fs-20 m-lr-5 fs-sm-16">{{\Illuminate\Support\Facades\Auth::user()->name }}</span>
         </div>
+        <div class="project-detalis-container"></div>
+        <div class="container">
+            <div class="header p-20">
+                <div class="d-flex align-items-center gap-1">
+                    <a href="{{route('dashboardStd')}}"> <p  class="fs-18 primary-color mb-0">Home</p> </a>
+                    <span>>@yield('title')</span>
+                </div>
+            </div>
+
         <div class="main-sections">
             @yield('content')
         </div>
@@ -39,6 +48,6 @@
 @include('student.partials.footer')
 
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
-{{--<script src="{{ asset('js/studentdashboard.js') }}"></script>--}}
+<script src="{{ asset('js/studentdashboard.js') }}"></script>
 </body>
 </html>

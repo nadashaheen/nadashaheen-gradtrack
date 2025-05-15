@@ -7,6 +7,7 @@ use App\Http\Controllers\SubmissionController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\MeetingController;
 use \App\Http\Controllers\Auth\LoginController;
+use \App\Http\Controllers\FinalProjectController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,10 +42,24 @@ Route::post('/logout', function () {
 
 
 
-Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+Route::get('/dashboardStd', [\App\Http\Controllers\DashboardController::class, 'dashboardStd'])->name('dashboardStd');
 Route::get('/addProjectIdea', [\App\Http\Controllers\DashboardController::class, 'addProjectIdea'])->name('addProjectIdea');
+Route::post('/add_idea', [\App\Http\Controllers\ProjectController::class, 'add_idea'])->name('add_idea');
 
+Route::get('/dashboardSuper', [\App\Http\Controllers\DashboardController::class, 'dashboardSuper'])->name('dashboardSuper');
 
+Route::get('/completedProj', [ProjectController::class, 'completedProj'])->name('completedProj');
+Route::get('/proposedProj', [ProjectController::class, 'proposedProj'])->name('proposedProj');
+Route::get('/search', [ProjectController::class, 'do_search'])->name('do_search');
+Route::get('/filters', [ProjectController::class, 'filters'])->name('filters');
+Route::get('/show_projectDetils', [ProjectController::class, 'show_projectDetils'])->name('show_projectDetils');
+Route::get('/show_add_final', [FinalProjectController::class, 'show_add_final'])->name('show_add_final');
+Route::post('/add_final', [FinalProjectController::class, 'add_final'])->name('add_final');
+
+Route::put('/accept/{id}', [ProjectController::class, 'accept'])->name('accept');
+Route::put('/reject/{id}', [ProjectController::class, 'reject'])->name('reject');
+
+//Route::get('/meetings', [\App\Http\Controllers\DashboardController::class, 'meetings'])->name('meetings');
 
 //Route::middleware(['auth', 'role:student'])->get('/dashboards/student', function () {
 //    return view('dashboards.student');
@@ -56,13 +71,11 @@ Route::get('/addProjectIdea', [\App\Http\Controllers\DashboardController::class,
 
 //Route::post('login', [LoginController::class, 'login'])->name('login');
 
-//
-//Route::post('/logout', function () {
-//    Auth::logout();
-//    request()->session()->invalidate();
-//    request()->session()->regenerateToken();
-//    return redirect('/login');
-//})->name('logout');
+
+Route::post('/logout', function () {
+    Auth::logout();
+    return redirect('/');
+})->name('logout');
 
 Route::resource('users', UserController::class);
 Route::resource('projects', ProjectController::class);

@@ -1,4 +1,4 @@
-@extends('layouts.master-supervisor')
+@extends('supervisor.layouts.master-supervisor')
 @section('title', 'All Projects Dashboard')
 
 @section('content')
@@ -32,33 +32,29 @@
                         <tbody>
 
                         <!--  هاد ستايتك ولازم يتغير لداينمك لون البروقرس بار ولون نص الستيتس -->
-                        <tr>
-                            <td>John Doe</td>
-                            <td>AI Research Project</td>
-                            <td class="status text-success">submitted</td>
-                            <td>
-                                <div class="progress">
-                                    <div class="progress-bar bg-success" style="width: 75%">
+                            @foreach($projects as $project)
+                                <tr>
+
+                                <td>
+                                    {{ $project->student_name ?? 'No Student' }}
+                                </td>
+                                <td>{{$project->title}}</td>
+                                <td class="status text-success">{{$project->status}}</td>
+                                <td>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-success" style="width: 75%">
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-
-
-
-                            <td>View Details</td>
+                                </td>
+                                <td>View Details</td>
                         </tr>
 
-                        <tr>
-                            <td>Jane Smith</td>
-                            <td>Blockchain Development</td>
-                            <td class="status text-warning">under review</td>
-                            <td>
-                                <div class="progress">
-                                    <div class="progress-bar bg-warning" style="width: 50%">
-                                    </div>
-                            </td>
-                            <td>View Details</td>
-                        </tr>
+                            @endforeach
+
+
+
+
+
 
 
                         </tbody>
@@ -70,12 +66,45 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header fw-bold">Upcoming Meetings</div>
-                        <div class="card-body">
+                    @if($meetings)
+                            <div class="responsive-table mb-15" style="margin-top: 0px">
+
+                                <table class="fs-15 w-full">
+                                    <thead>
+                                    <tr>
+                                        <td>Meeting Title</td>
+                                        <td>Project Title</td>
+                                        <td>Date</td>
+                                        <td>Time</td>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($meetings as $meeting)
+                                        <tr>
+                                            <td>{{$meeting->title}}</td>
+                                            <td>{{ $meeting->project->title ?? 'N/A' }}</td>
+                                            <td>{{$meeting->meeting_date}}</td>
+                                            <td>{{$meeting->meeting_time}}</td>
+
+                                        </tr>
+
+                                    @endforeach
+
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        @else
+                        <div  class="card-body">
                             <div class="each-deadline d-flex align-items-center justify-content-between">
                                 <p class="card-text p-15">No upcoming meetings scheduled.</p>
 
                             </div>
                         </div>
+                        @endif
                     </div>
                 </div>
 

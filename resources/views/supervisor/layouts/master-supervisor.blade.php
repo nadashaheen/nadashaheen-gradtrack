@@ -22,13 +22,21 @@
     <div class="head bg-white p-20 d-flex align-items-center justify-content-between primary-color">
         <div class="d-flex align-items-center">
             <h3 class="text-center p-relative mb-0 fs-sm-20">Hello,</h3>
-            <span class="fs-20 m-lr-5 fs-sm-16">Prof Name</span>
+            <span class="fs-20 m-lr-5 fs-sm-16">Prof. {{\Illuminate\Support\Facades\Auth::user()->name }}</span>
         </div>
-        <i class="fa-solid fa-right-from-bracket fa-fw fs-20"></i>
+        <li class="fa-solid fa-right-from-bracket fa-fw fs-20">
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="dropdown-item text-primary">
+                    <i class="fa fa-sign-out-alt"></i> Logout
+                </button>
+            </form>
+        </li>
+
     </div>
 
     <div class="dashboard-supervisor-content">
-    @include('partials.navbar-supervisor')
+    @include('supervisor.partials.navbar-supervisor')
 
     <!-- هون بتحط div عرض المحتوى -->
         <div id="tab-content-area" class="p-3">
@@ -36,7 +44,7 @@
         </div>
     </div>
 </div>
-@include('partials.footer')
+@include('supervisor.partials.footer')
 
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('js/studentdashboard.js') }}"></script>

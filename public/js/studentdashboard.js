@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const uploadedFileName = document.getElementById("uploadedFileName");
   const sidebar = document.querySelector(".sidebar");
   const toggleBtn = document.getElementById("toggleSidebar");
-  const sidebarDropdown = document.querySelectorAll(".sidebar-dropdown > a"); 
+  const sidebarDropdown = document.querySelectorAll(".sidebar-dropdown > a");
   const links = document.querySelectorAll(".sidebar-link");
   const defaultPage = "studentdashboard";
 
@@ -122,33 +122,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //  لوجيك عرض الصفحات في داشبورد الطالب
 
-  // تحميل الصفحة الافتراضية عند فتح الصفحة لأول مرة
-  loadPage(defaultPage);
-
-  links.forEach((link) => {
-    link.addEventListener("click", function (e) {
-      e.preventDefault(); // لمنع الرابط من إعادة تحميل الصفحة
-      const page = link.getAttribute("data-page"); // الحصول على اسم الصفحة
-
-      // استدعاء المحتوى المناسب لكل صفحة
-      if (page) {
-        loadPage(page);
-      }
-    });
-  });
-
-  // دالة تحميل المحتوى
-  function loadPage(page) {
-    const content = document.querySelector(".main-sections");
-
-    // تحميل الصفحة حسب الاسم
-    fetch(page + ".html") // تأكد من أن هذه الصفحات موجودة في نفس المجلد
-      .then((response) => response.text())
-      .then((data) => {
-        content.innerHTML = data; // وضع المحتوى داخل الـ content
-      })
-      .catch((error) => {
-        content.innerHTML = "<p>Error loading page</p>";
-      });
-  }
+  // // تحميل الصفحة الافتراضية عند فتح الصفحة لأول مرة
+  // loadPage(defaultPage);
+  //
+  // links.forEach((link) => {
+  //   link.addEventListener("click", function (e) {
+  //     e.preventDefault(); // لمنع الرابط من إعادة تحميل الصفحة
+  //     const page = link.getAttribute("data-page"); // الحصول على اسم الصفحة
+  //
+  //     // استدعاء المحتوى المناسب لكل صفحة
+  //     if (page) {
+  //       loadPage(page);
+  //     }
+  //   });
+  // });
+  //
+  // // دالة تحميل المحتوى
+  // function loadPage(page) {
+  //   const content = document.querySelector(".main-sections");
+  //
+  //   // تحميل الصفحة حسب الاسم
+  //   fetch(page + ".html") // تأكد من أن هذه الصفحات موجودة في نفس المجلد
+  //     .then((response) => response.text())
+  //     .then((data) => {
+  //       content.innerHTML = data; // وضع المحتوى داخل الـ content
+  //     })
+  //     .catch((error) => {
+  //       content.innerHTML = "<p>Error loading page</p>";
+  //     });
+  // }
 });

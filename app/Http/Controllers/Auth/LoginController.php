@@ -14,11 +14,11 @@ class LoginController extends Controller
 
         if (Auth::check() && $user->role === 'student'){
 //dd($user->role);
-            return view('student.dashboard');
+            return redirect()->route('dashboardStd');
 
         }elseif (Auth::check() && $user->role === 'supervisor'){
 //            dd($user->role);
-            return view('supervisor.supervisor');
+            return redirect()->route('projects.index');
         }else{
             return view('index');
         }
@@ -30,10 +30,10 @@ class LoginController extends Controller
         $user = Auth::user();
 
         if (Auth::check() && $user->role === 'student'){
-            return view('student.dashboard');
+            return redirect()->route('dashboardStd');
 
         }elseif (Auth::check() && $user->role === 'supervisor'){
-            return view('supervisor.supervisor');
+            return redirect()->route('projects.index');
         }else{
             return view('login');
         }
@@ -64,9 +64,9 @@ class LoginController extends Controller
 
             // إعادة التوجيه بناءً على الدور
             if ($user->role === 'student') {
-                return view('student.dashboard');
+                return redirect()->route('dashboardStd');
             } elseif ($user->role === 'supervisor') {
-                return view('supervisor.supervisor');
+                return redirect()->route('projects.index');
             }
         }
 
@@ -78,9 +78,11 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         if ($user->hasRole('student')) {
-            return redirect('/student/dashboard');
+            return redirect()->route('dashboardStd');
+
         } elseif ($user->hasRole('supervisor')) {
-            return redirect('/supervisor/supervisor');
+            return redirect()->route('projects.index');
+
         } else {
             return abort(403, 'Unauthorized');
         }

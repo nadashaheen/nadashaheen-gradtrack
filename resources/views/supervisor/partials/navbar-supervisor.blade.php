@@ -2,13 +2,16 @@
     <div class="container-fluid flex-wrap">
         <ul class="navbar-nav d-flex flex-row flex-wrap gap-4 mb-2 mb-lg-0">
             <li class="nav-item">
-                <a class="nav-link active" data-tab="all-projects.html" href="#">All Projects</a>
+                <a  class="nav-link active" data-tab="all-projects.html" href="{{route('projects.index')}}">All Projects</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-tab="completed-projects.html" href="#">Completed</a>
+                <a class="nav-link" data-tab="completed-projects.html" href="{{route('completedProj')}}">Completed</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-tab="schedule-meetings.html" href="#">Schedule Meetings</a>
+                <a class="nav-link" data-tab="schedule-meetings.html" href="{{route('meetings.index')}}">Schedule Meetings</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-tab="schedule-meetings.html" href="{{route('proposedProj')}}">Proposed Project</a>
             </li>
         </ul>
 

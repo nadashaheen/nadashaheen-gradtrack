@@ -7,19 +7,26 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
+                    @include('student.layouts.masseges')
+
                     <div class="card">
-                        <div class="card-header">Project Overview</div>
-                        <div class="card-body">
-                            <h5 class="card-title">Project Title</h5>
-                            <p class="card-text">
-                                Current Status: <span class="stauts-span"> In Progress</span>
-                            </p>
-                            <div class="progress">
-                                <div class="progress-bar bg-success" style="width: 75%">
-                                    75%
+                        @if($project)
+                            <div class="card-header">Project Overview</div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{$project->title ?? 'No Project Yet'}}</h5>
+                                <p class="card-text">
+                                    Current Status: <span class="stauts-span"> {{$project->status ?? 'No Project Yet'}}</span>
+                                </p>
+                                <div class="progress">
+                                    <div class="progress-bar bg-success" style="width: 75%">
+                                        75%
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @else
+                            <h3 class="text-center text-primary" style="margin: 30px">No Project Yet</h3>
+                        @endif
+
                     </div>
                 </div>
             </div>

@@ -20,5 +20,9 @@ class ProjectStage extends Model
     {
         return $this->hasOne(Evaluation::class);
     }
+    public function submissions()
+    {
+        return $this->hasMany(Submission::class, 'stage_id');
+    }
     use HasFactory;
 }
