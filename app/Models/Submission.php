@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Submission extends Model
 {
     protected $fillable = [
-        'project_id', 'stage_id', 'student_id', 'file_path', 'submitted_at',
+        'project_id', 'stage_id', 'student_id', 'status','file_path', 'submitted_at',
     ];
 
     // العلاقات

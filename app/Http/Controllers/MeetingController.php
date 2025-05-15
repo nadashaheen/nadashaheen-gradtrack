@@ -21,13 +21,41 @@ class MeetingController extends Controller
      */
     public function index()
     {
-        $projects = Auth::user()->projects()->get();
+        $supervisorId = Auth::user()->id;
+
+        // جلب المشاريع الخاصة بالمشرف الحالي
         $projects = DB::table('projects')
-            ->where('projects.supervisor_id', Auth::user()->id)
+            ->where('supervisor_id', $supervisorId)
             ->get();
-        $meetings = Meeting::orderByDesc('meeting_date')->with('project')->paginate(5);
-       // $meetings = Meeting::orderByDesc('meeting_date')->paginate(5);
-        return view('supervisor.schedulemeetings', compact('meetings' , 'projects'));
+
+        // جلب الاجتماعات الخاصة بالمشرف فقط من خلال ربطها بالمشاريع
+        $meetings = DB::table('meetings')
+            ->join('projects', 'meetings.project_id', '=', 'projects.id')
+            ->where('projects.supervisor_id', $supervisorId)
+            ->select('meetings.*', 'projects.title as project_name')
+            ->orderByDesc('meetings.meeting_date')
+            ->paginate(5);
+
+        return view('supervisor.schedulemeetings', compact('meetings', 'projects'));
+    }
+
+
+    public function show_meeting_std()
+    {
+        $project = DB::table('projects')
+            ->where('projects.student_id', Auth::user()->id)
+            ->first();
+        $meetings = '' ;
+        $meetings_left = '';
+if ($project){
+    $meetings = Meeting::orderByDesc('meeting_date')->where('project_id' , $project->id) ->where('meeting_date', '>', now())->paginate(5);
+    $meetings_left = Meeting::orderByDesc('meeting_date')->where('project_id' , $project->id) ->where('meeting_date', '<', now())->paginate(5);
+
+}
+
+
+        // $meetings = Meeting::orderByDesc('meeting_date')->paginate(5);
+        return view('student.meetings', compact('meetings' , 'project' , 'meetings_left'));
     }
 
     /**
@@ -123,8 +151,9 @@ class MeetingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Meeting $meeting)
+    public function destroy($id)
     {
+        $meeting = Meeting::findOrFail($id); // ✅ جلب الاجتماع أولاً
 
         $meeting->delete();
         return redirect()->route('meetings.index')->with('success', 'Meeting Deleted Successfully');

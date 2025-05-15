@@ -1,26 +1,32 @@
-@extends('layouts.master-student')
+@extends('student.layouts.master-student')
 @section('title', 'Project Stage')
 
 @section('content')
+    @include('student.layouts.masseges')
+
+    @php
+        function getStatusBadge($status) {
+            return match($status) {
+                'Accepted' => '<p class="card-text text-success">✔ Accepted</p>',
+                'Under Review' => '<p class="card-text text-warning">⏳ Under Review</p>',
+                'Reject' => '<p class="card-text text-danger">🚫 Rejected</p>',
+                default => '<p class="card-text text-muted">Unknown</p>',
+            };
+        }
+    @endphp
+
     <div class="project-phases-container">
         <div class="container">
-            <div class="header p-25">
-                <div class="d-flex align-items-center gap-2">
-                    <p class="fs-18 primary-color mb-0 fs-sm-16">Home></p>
-                    <p class="fs-18 primary-color mb-0 fs-sm-16">Project Details></p>
-                    <span class="fs-sm-16"> Project Phase</span>
-                </div>
-            </div>
 
             <div class="uploadedfile mt-20">
                 <div class="row">
                     <div class="col-lg-12">
                         <div>
-                            <div class="primary-color fw-bold fs-20">Project Title</div>
+                            <div class="primary-color fw-bold fs-20">{{$stage->status}}</div>
                             <div>
                                 <p>
                                     Current Status:
-                                    <span class="stauts-span"> In Progress</span>
+                                    <span class="stauts-span"> {{$project->status}} </span>
                                 </p>
                             </div>
 
@@ -31,20 +37,22 @@
                                     </div>
 
                                     <div class="card-body">
-                                        <div class="each-phase d-flex align-items-center justify-content-between">
-                                            <p class="card-text">Project_Research.pdf</p>
-                                            <p class="card-text text-success">✔ Accepted</p>
-                                        </div>
+                                        @if($lastSubmission)
+                                            @foreach($lastSubmission as $submission)
+                                                    <div class="each-phase d-flex align-items-center justify-content-between">
+                                                        <p class="card-text">{{ basename($submission->file_path) }}
+                                                          |  Submitted at: {{ $submission->created_at }}</p>
+                                                        {!! getStatusBadge($submission->status) !!}
 
-                                        <div class="each-phase d-flex align-items-center justify-content-between">
-                                            <p class="card-text">Initil_document.docs</p>
-                                            <p class="card-text text-warning">⏳ Under Review</p>
-                                        </div>
+                                                    </div>
 
-                                        <div class="each-phase d-flex align-items-center justify-content-between">
-                                            <p class="card-text">Final Report.zip</p>
-                                            <p class="card-text text-muted">🚀 Reject</p>
-                                        </div>
+                                            @endforeach
+                                        @else
+                                            <div class="each-phase d-flex align-items-center justify-content-between">
+                                                <p class="card-text text-warning">No Submission Yet</p>
+                                            </div>
+
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -52,18 +60,26 @@
                     </div>
                 </div>
             </div>
-            <form>
+            <form action="{{route('submissions.store')}}" method="POST" enctype="multipart/form-data" >
+                @csrf
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="upload-file p-20 m-10">
                             <h5 class="fw-bold fs-18">File Upload</h5>
                             <div class="file-drop-area" id="file-drop-area">
                                 <p>Drag & drop your files here or click to upload</p>
-                                <input type="file" id="final-project-file" name="finalProjectFile"
+                                <input type="file" id="final-project-file" name="file_path"
                                        accept=".pdf, .docx, .zip, .ppt, .pptx" multiple />
                             </div>
                             <div id="file-names" class="mt-3 text-center"></div>
                         </div>
+                    </div>
+
+
+                    <div class="col-lg-12 d-flex align-items-center justify-content-center m-10">
+                        <button type="submit" class="btn main-btn">
+                            Submit your Review
+                        </button>
                     </div>
 
                     <div class="col-lg-12">
@@ -79,20 +95,12 @@
                                         guidelines for the development phase.
                                     </p>
 
-                                    <div class="mt-2">
-                                        <label for="studentReply" class="fw-bold fs-16 mb-2 d-block">Your Reply:</label>
-                                        <textarea id="studentReply" rows="4" class="form-control w-100"
-                                                  placeholder="Write your reply here..."></textarea>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-12 d-flex align-items-center justify-content-center m-10">
-                        <button type="submit" class="btn main-btn">
-                            Submit your Review
-                        </button>
-                    </div>
+
+
                 </div>
             </form>
         </div>

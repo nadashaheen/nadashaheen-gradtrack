@@ -20,7 +20,7 @@ class ProjectStageFactory extends Factory
         return [
             'project_id' => Project::factory(),
             'name' => $this->faker->word(),
-            'status' => $this->faker->randomElement(['pending', 'under_review', 'approved', 'rejected']),
+            'status' => $this->faker->randomElement(['Idea & Research Phase', 'Documentation Phase', 'UI/UX Phase', 'Frontend Phase' , 'Backend Phase']),
         ];
     }
 }

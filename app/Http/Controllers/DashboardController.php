@@ -14,9 +14,32 @@ class DashboardController extends Controller
         $id = Auth::user()->id;
         $user = User::find($id);
         $project = DB::table('projects')->where('student_id', $id)->first();
+        $stages = [
+            'Idea & Research Phase',
+            'Documentation Phase',
+            'UI/UX Phase',
+            'Frontend Phase',
+            'Backend Phase'
+        ];
+        $progress = '';
+        if ($project){
 
+// ترتيب المراحل حسب التقدم
 
-        return view('student.dashboard' , compact('user' , 'project'));
+// اجلب المرحلة الحالية من الجدول
+            $currentStage = DB::table('project_stages')
+                ->where('project_id', $project->id)
+                ->orderByDesc('id') // نفترض أن آخر إدخال هو الأحدث
+                ->value('status');
+
+// حساب التقدم بناءً على موقع المرحلة الحالية
+            $currentIndex = array_search($currentStage, $stages);
+            $progress = $currentIndex !== false ? round((($currentIndex + 1) / count($stages)) * 100) : 0;
+
+        }
+
+        return view('student.dashboard' , compact('user' , 'project' ,'progress'));
+
     }
     public function addProjectIdea(){
         $studentId = Auth::user()->id;  // أو يمكن تعديلها حسب طريقة إدارة المستخدمين لديك

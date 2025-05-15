@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('project_id')->constrained()->onDelete('cascade');
             $table->string('name');
-            $table->enum('status', ['pending', 'under_review', 'approved', 'rejected'])->default('pending');
+            $table->enum('status', ['Idea & Research Phase', 'Documentation Phase', 'UI/UX Phase', 'Frontend Phase' , 'Backend Phase'])->default('Idea & Research Phase');
             $table->timestamps();
         });
     }

@@ -1,4 +1,4 @@
-@extends('layouts.master-student')
+@extends('student.layouts.master-student')
 @section('title', 'My Meetings')
 
 @section('content')
@@ -28,22 +28,22 @@
                             <td><i class="fa-solid fa-calendar-days"></i> Date</td>
                             <td><i class="fa-solid fa-clock"></i> Time</td>
                             <td><i class="fa-solid fa-link"></i> Meeting Link</td>
+
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>Progress Discussion</td>
-                            <td>12/10/2025</td>
-                            <td>11:00 AM</td>
-                            <td><a href="#">Join Meeting</a></td>
-                        </tr>
+                        @if($project)
+                            @foreach($meetings as $meeting)
+                                <tr>
 
-                        <tr>
-                            <td>Feedback Session</td>
-                            <td>14/10/2025</td>
-                            <td>2:00 PM</td>
-                            <td><a href="#">Join Meeting</a></td>
+                                <td>{{$meeting->title}}</td>
+                            <td>{{$meeting->meeting_date}}</td>
+                            <td>{{$meeting->meeting_time}}</td>
+                            <td><a target="_blank"  href="{{$meeting->meeting_link}}">Join Meeting</a></td>
                         </tr>
+                            @endforeach
+
+                        @endif
                         </tbody>
                     </table>
                 </div>
@@ -51,29 +51,30 @@
 
             <div class="history-meeting-table-container mt-20">
                 <h3 class="mt-10 p-relative fs-18 primary-color fw-bold">
-                    Meeting History
+                    Previous Meetings
                 </h3>
                 <div class="responsive-table mb-15">
                     <table class="fs-15 w-full">
                         <thead>
                         <tr>
                             <td>Meeting Title</td>
-                            <td>Date & Time</td>
-                            <td>Stauts</td>
+                            <td><i class="fa-solid fa-calendar-days"></i> Date</td>
+                            <td><i class="fa-solid fa-clock"></i> Time</td>
+
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>Initial Meeting</td>
-                            <td>10/10/2025 01:00 PM</td>
-                            <td class="text-success fw-bold">✅ Attended</td>
-                        </tr>
+                        @if($project)
 
-                        <tr>
-                            <td>Midterm Review</td>
-                            <td>05/10/2025 02:00 PM</td>
-                            <td class="text-danger fw-bold">❌ Missed</td>
-                        </tr>
+                            @foreach($meetings_left as $meeting)
+                            <tr>
+
+                                <td>{{$meeting->title}}</td>
+                                <td>{{$meeting->meeting_date}}</td>
+                                <td>{{$meeting->meeting_time}}</td>
+                            </tr>
+                        @endforeach
+                        @endif
                         </tbody>
                     </table>
                 </div>

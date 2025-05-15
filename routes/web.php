@@ -8,6 +8,8 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\MeetingController;
 use \App\Http\Controllers\Auth\LoginController;
 use \App\Http\Controllers\FinalProjectController;
+use \App\Http\Controllers\StageEvaluationController;
+use \App\Http\Controllers\ProjectStageController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -59,6 +61,11 @@ Route::post('/add_final', [FinalProjectController::class, 'add_final'])->name('a
 Route::put('/accept/{id}', [ProjectController::class, 'accept'])->name('accept');
 Route::put('/reject/{id}', [ProjectController::class, 'reject'])->name('reject');
 
+Route::get('/viewDetails_super/{id}', [ProjectStageController::class, 'viewDetails_super'])->name('viewDetails_super');
+Route::post('/evaluate_final_project/', [FinalProjectController::class, 'evaluate_final_project'])->name('evaluate_final_project');
+
+Route::get('/show_meeting_std', [MeetingController::class, 'show_meeting_std'])->name('show_meeting_std');
+
 //Route::get('/meetings', [\App\Http\Controllers\DashboardController::class, 'meetings'])->name('meetings');
 
 //Route::middleware(['auth', 'role:student'])->get('/dashboards/student', function () {
@@ -79,7 +86,7 @@ Route::post('/logout', function () {
 
 Route::resource('users', UserController::class);
 Route::resource('projects', ProjectController::class);
-Route::resource('project-phases', \App\Http\Controllers\ProjectStageController::class);
+Route::resource('projectStage', ProjectStageController::class);
 Route::resource('submissions', SubmissionController::class);
 Route::resource('comments', CommentController::class);
 Route::resource('meetings', MeetingController::class);

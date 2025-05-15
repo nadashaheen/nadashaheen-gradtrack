@@ -24,14 +24,14 @@
             </a>
             <ul class="sidebar-submenu">
                 <li>
-                    <a href="{{route('show_projectDetils')}}" class="sidebar-link d-flex align-items-center fs-14" data-page="projectdetalis">
+                    <a href="{{route('projectStage.index')}}" class="sidebar-link d-flex align-items-center fs-14" data-page="projectdetalis">
                         <i class="fa-regular fa-file-lines me-2"></i>
                         <!-- أيقونة ملف -->
                         <span>Project Details</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="sidebar-link d-flex align-items-center fs-14" data-page="projectphase">
+                    <a href="{{route('submissions.index')}}" class="sidebar-link d-flex align-items-center fs-14" data-page="projectphase">
                         <i class="fa-solid fa-diagram-project me-2"></i>
                         <span>Project Phases</span>
                     </a>
@@ -40,7 +40,7 @@
         </li>
 
         <li>
-            <a class="sidebar-link d-flex align-items-center fs-16 primary-color p-10" href="projects.html"
+            <a class="sidebar-link d-flex align-items-center fs-16 primary-color p-10" href="{{route('show_meeting_std')}}"
                data-page="mymeetings-student">
                 <i class="fa-solid fa-calendar-days fa-fw"></i>
                 <span class="sidebar-text">Meetings & Schedule</span>

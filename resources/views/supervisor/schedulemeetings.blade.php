@@ -32,15 +32,16 @@
                     </tr>
                     </thead>
                     <tbody>
+                    @if($meetings)
                     @foreach($meetings as $meeting)
                         <tr>
                             <td>{{$meeting->title}}</td>
-                            <td>{{ $meeting->project->title ?? 'N/A' }}</td>
+                            <td>{{ $meeting->project_name ?? 'N/A' }}</td>
                             <td>{{$meeting->meeting_date}}</td>
                             <td>{{$meeting->meeting_time}}</td>
                             <td><a href="{{$meeting->meeting_link}}">Join Meeting</a></td>
 {{--                            <td><a href="{{route('meetings.destroy',$meeting)}}">Delete</a></td>--}}
-                            <td><form style="float: left ; margin: 10px" method="post" action="{{route('meetings.destroy',$meeting)}}">
+                            <td><form style="float: left ; margin: 10px" method="post" action="{{route('meetings.destroy',$meeting->id)}}">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm">
@@ -54,7 +55,7 @@
                         </tr>
 
                     @endforeach
-
+                    @endif
 
                     </tbody>
                 </table>

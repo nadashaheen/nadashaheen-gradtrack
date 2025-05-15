@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreignId('stage_id')->constrained('project_stages');
             $table->foreignId('student_id')->constrained('users');
             $table->string('file_path');
+            $table->string('status')->default('Under Review');
+
             $table->text('comments')->nullable();
             $table->timestamps();
         });

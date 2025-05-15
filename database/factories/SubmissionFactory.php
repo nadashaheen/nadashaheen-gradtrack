@@ -23,6 +23,7 @@ class SubmissionFactory extends Factory
             'stage_id' => ProjectStage::factory(),
             'student_id' => User::where('role', 'student')->inRandomOrder()->first()->id,
             'file_path' => 'submissions/' . $this->faker->uuid() . '.pdf',
+            'status' => $this->faker->randomElement(['Under Review' , 'Accepted' , 'Reject']),
             'comments' =>  $this->faker->sentence(),
         ];
     }

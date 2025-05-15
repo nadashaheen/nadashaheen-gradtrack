@@ -35,9 +35,16 @@ class ProjectController extends Controller
         $project = Project::find($id);
         $project->status = 'in_progress';
         $project->save();
-        return redirect()->back()->with('success', 'accept request Successfully');
 
-//        return redirect()->route('profile', $user)->with('success', 'your information Updated Successfully');
+        DB::table('project_stages')->insert([
+            'project_id' => $project->id,
+            'status'=> 'Idea & Research Phase',
+            'name'=>'',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        return redirect()->back()->with('success', 'accept request Successfully');
 
     }
 
@@ -49,6 +56,8 @@ class ProjectController extends Controller
             'projectDescription' => 'required|string|max:1000',
             'supervisor_id' => 'required|exists:users,id',
         ]);
+
+
 
         // إنشاء المشروع
         $project = new Project();
@@ -66,7 +75,7 @@ class ProjectController extends Controller
 
     public function show_projectDetils()
     {
-        $student_id = Auth::id();
+        $student_id = Auth::user()->id;
 
         // الأفضل استخدام where مباشرة بدون all() لفعالية الاستعلام
         $project = Project::where('student_id', $student_id)->first(); // استخدم first() إذا كان لكل طالب مشروع واحد فقط
@@ -214,15 +223,19 @@ if (!$project){
         $projects = DB::table('projects')
             ->join('users', 'projects.student_id', '=', 'users.id')
             ->where('projects.supervisor_id', $userId)
-            ->select('projects.*', 'users.name as student_name', 'users.stdNo as student_number')
+            ->select('projects.*', 'users.name as student_name','users.id as student_id', 'users.stdNo as student_number')
             ->get();
 
         // جلب الاجتماعات مع اسم المشروع
         $meetings = DB::table('meetings')
             ->join('projects', 'meetings.project_id', '=', 'projects.id')
+            ->where('projects.supervisor_id', Auth::user()->id)
             ->orderByDesc('meeting_date')
             ->select('meetings.*', 'projects.title as project_title')
             ->paginate(5); // تأكد من أنك تستخدم paginator الصحيح في view
+
+
+
 
         return view('supervisor.allprojects', compact('projects', 'meetings'));
     }

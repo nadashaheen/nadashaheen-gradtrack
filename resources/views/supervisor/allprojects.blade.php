@@ -7,9 +7,11 @@
             <div class="table-head-container mb-20 ">
                 <div class="head">
                     <div class=" d-flex  add-project-container">
-                        <h3 class="text-center mt-10 p-relative fs-18 primary-color fw-bold fs-sm-20 mb-sm-10">Student Project List
+                        <h3 class="text-center mt-10 p-relative fs-18 primary-color fw-bold fs-sm-20 mb-sm-10">Student
+                            Project List
                         </h3>
-                        <button class="btn main-btn mb-3" id="uploadBtn" data-bs-toggle="modal" data-bs-target="#addProjectModal">
+                        <button class="btn main-btn mb-3" id="uploadBtn" data-bs-toggle="modal"
+                                data-bs-target="#addProjectModal">
               <span class="icon-circle">
                 <i class="fa-solid fa-plus primary-color"></i>
               </span>
@@ -32,8 +34,8 @@
                         <tbody>
 
                         <!--  هاد ستايتك ولازم يتغير لداينمك لون البروقرس بار ولون نص الستيتس -->
-                            @foreach($projects as $project)
-                                <tr>
+                        @foreach($projects as $project)
+                            <tr>
 
                                 <td>
                                     {{ $project->student_name ?? 'No Student' }}
@@ -46,15 +48,19 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td>View Details</td>
-                        </tr>
+                                <td>
+                                    @if($project->status == 'proposed')
+                                        watting accpte
+                                    @else
+                                    <a href="{{route('viewDetails_super' , $project->student_id)}}">
+                                        View Details
+                                    </a>
+                                    @endif
+                                </td>
 
-                            @endforeach
+                            </tr>
 
-
-
-
-
+                        @endforeach
 
 
                         </tbody>
@@ -66,7 +72,7 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header fw-bold">Upcoming Meetings</div>
-                    @if($meetings)
+                        @if($meetings)
                             <div class="responsive-table mb-15" style="margin-top: 0px">
 
                                 <table class="fs-15 w-full">
@@ -83,7 +89,7 @@
                                     @foreach($meetings as $meeting)
                                         <tr>
                                             <td>{{$meeting->title}}</td>
-                                            <td>{{ $meeting->project->title ?? 'N/A' }}</td>
+                                            <td>{{ $meeting->project_title ?? 'N/A' }}</td>
                                             <td>{{$meeting->meeting_date}}</td>
                                             <td>{{$meeting->meeting_time}}</td>
 
@@ -98,12 +104,12 @@
                             </div>
 
                         @else
-                        <div  class="card-body">
-                            <div class="each-deadline d-flex align-items-center justify-content-between">
-                                <p class="card-text p-15">No upcoming meetings scheduled.</p>
+                            <div class="card-body">
+                                <div class="each-deadline d-flex align-items-center justify-content-between">
+                                    <p class="card-text p-15">No upcoming meetings scheduled.</p>
 
+                                </div>
                             </div>
-                        </div>
                         @endif
                     </div>
                 </div>
@@ -115,7 +121,8 @@
 
 
 
-    <div class="modal fade " id="addProjectModal" tabindex="-1" aria-labelledby="addProjectModalLabel" aria-hidden="true">
+    <div class="modal fade " id="addProjectModal" tabindex="-1" aria-labelledby="addProjectModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog card-authntucation-color">
             <div class="modal-content card-authntucation-color  p-20">
                 <div class="modal-header d-flex justify-content-between align-items-center">
@@ -130,16 +137,19 @@
                     <form id="addProjectForm">
                         <div class="mb-3">
                             <label for="projectTitle" class="form-label">Project Title</label>
-                            <input type="text" class="form-control" id="projectTitle" required placeholder="Enter project title">
+                            <input type="text" class="form-control" id="projectTitle" required
+                                   placeholder="Enter project title">
                         </div>
                         <div class="mb-3">
                             <label for="studentName" class="form-label">Student Name</label>
-                            <input type="text" class="form-control" id="studentName" required placeholder="Enter student name">
+                            <input type="text" class="form-control" id="studentName" required
+                                   placeholder="Enter student name">
                         </div>
 
                         <div class="mb-3">
                             <label for="studentID" class="form-label">Student ID</label>
-                            <input type="text" class="form-control" id="studentID" required placeholder="Enter student ID">
+                            <input type="text" class="form-control" id="studentID" required
+                                   placeholder="Enter student ID">
                         </div>
 
                         <div class="mb-3">
