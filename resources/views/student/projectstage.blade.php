@@ -1,19 +1,20 @@
 @extends('student.layouts.master-student')
 @section('title', 'Project Stage')
+@php
 
+    function getStatusBadge($status) {
+        return match($status) {
+            'Accepted' => '<p class="card-text text-success">✔ Accepted</p>',
+            'Under Review' => '<p class="card-text text-warning">⏳ Under Review</p>',
+            'Rejected' => '<p class="card-text text-danger">🚫 Rejected</p>',
+            default => '<p class="card-text text-muted">Unknown</p>',
+        };
+    }
+@endphp
 @section('content')
     @include('student.layouts.masseges')
 
-    @php
-        function getStatusBadge($status) {
-            return match($status) {
-                'Accepted' => '<p class="card-text text-success">✔ Accepted</p>',
-                'Under Review' => '<p class="card-text text-warning">⏳ Under Review</p>',
-                'Reject' => '<p class="card-text text-danger">🚫 Rejected</p>',
-                default => '<p class="card-text text-muted">Unknown</p>',
-            };
-        }
-    @endphp
+
 
     <div class="project-phases-container">
         <div class="container">
@@ -37,14 +38,17 @@
                                     </div>
 
                                     <div class="card-body">
+
                                         @if($lastSubmission)
                                             @foreach($lastSubmission as $submission)
                                                     <div class="each-phase d-flex align-items-center justify-content-between">
-                                                        <p class="card-text">{{ basename($submission->file_path) }}
-                                                          |  Submitted at: {{ $submission->created_at }}</p>
-                                                        {!! getStatusBadge($submission->status) !!}
-
+                                                        <a href="{{route('showComments_std' , $submission->id )}}">  <p class="card-text">{{ basename($submission->file_path) }}
+                                                          |  Submitted at: {{ $submission->created_at }}</p></a>
+                                                      @if($submission->status)
+                                                            {!! getStatusBadge($submission->status) !!}
+                                                        @endif
                                                     </div>
+
 
                                             @endforeach
                                         @else
@@ -82,23 +86,6 @@
                         </button>
                     </div>
 
-                    <div class="col-lg-12">
-                        <div class="project-comment-container m-10">
-                            <div class="card p-10">
-                                <div class="card-header">
-                                    <h5 class="card-title fw-bold">Comments</h5>
-                                </div>
-                                <div class="card-body">
-                                    <p class="card-title fw-bold fs-18">Supervisor's Notes:</p>
-                                    <p class="fs-14">
-                                        Great work on the proposal! Please ensure you follow the
-                                        guidelines for the development phase.
-                                    </p>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
 
                 </div>
@@ -106,3 +93,4 @@
         </div>
     </div>
 @endsection
+

@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
+use App\Models\Submission;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 class CommentController extends Controller
@@ -13,9 +17,39 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function showComments($id)
+    {
+        // التأكد أن التسليم موجود
+        $submission = Submission::findOrFail($id);
+
+        // جلب التعليقات التي كتبها الموجهون لهذا التسليم
+        $comments = DB::table('comments')
+            ->join('users', 'comments.user_id', '=', 'users.id')
+            ->where('comments.submission_id', $id)
+            ->select('comments.*', 'users.name as user_name', 'users.role as user_role')
+            ->orderBy('comments.created_at', 'desc')
+            ->get();
+        return view('supervisor.comments', compact('submission' , 'comments'));
+    }
+
+    public function showComments_std($id)
+    {
+        // التأكد أن التسليم موجود
+        $submission = Submission::findOrFail($id);
+
+        // جلب التعليقات التي كتبها الموجهون لهذا التسليم
+        $comments = DB::table('comments')
+            ->join('users', 'comments.user_id', '=', 'users.id')
+            ->where('comments.submission_id', $id)
+            ->select('comments.*', 'users.name as user_name', 'users.role as user_role')
+            ->orderBy('comments.created_at', 'desc')
+            ->get();
+        return view('student.comments', compact('submission' , 'comments'));
+    }
+
     public function index()
     {
-        //
+
     }
 
     /**
@@ -36,7 +70,21 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        // تحقق من البيانات المدخلة
+        $validated = $request->validate([
+            'submission_id' => 'required|exists:submissions,id',
+            'content' => 'required|string|max:5000',
+        ]);
+
+        // إنشاء التعليق
+        Comment::create([
+            'submission_id' => $validated['submission_id'],
+            'user_id' => Auth::user()->id,
+            'content' => $validated['content'],
+        ]);
+
+        return back()->with('success', 'Comment added successfully.');
     }
 
     /**

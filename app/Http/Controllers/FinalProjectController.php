@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
 use App\Models\ProjectStage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -81,11 +82,17 @@ class FinalProjectController extends Controller
         $score = $request->score;
         $feedback = $request->feedback;
 
+        $project = Project::find($project_id);
+        $project->status = 'completed';
+        $project->save();
+
         DB::table('evaluations')->insert([
             'project_id' => $project_id,
             'supervisor_id' => $supervisor_id,
             'score' => $score,
             'feedback' => $feedback,
+            'created_at' => now(),
+            'updated_at' => now(),
 
         ]);
         return back()->with('success', 'evaluated successfully');

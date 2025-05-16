@@ -24,8 +24,6 @@ class DashboardController extends Controller
         $progress = '';
         if ($project){
 
-// ترتيب المراحل حسب التقدم
-
 // اجلب المرحلة الحالية من الجدول
             $currentStage = DB::table('project_stages')
                 ->where('project_id', $project->id)

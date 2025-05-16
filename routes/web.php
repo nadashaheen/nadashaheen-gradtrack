@@ -83,6 +83,9 @@ Route::post('/logout', function () {
     Auth::logout();
     return redirect('/');
 })->name('logout');
+Route::get('/projects/search', [ProjectController::class, 'search'])->name('projects.search');
+Route::get('/comments/{id}', [CommentController::class, 'showComments'])->name('showComments');
+Route::get('/comment/{id}', [CommentController::class, 'showComments_std'])->name('showComments_std');
 
 Route::resource('users', UserController::class);
 Route::resource('projects', ProjectController::class);

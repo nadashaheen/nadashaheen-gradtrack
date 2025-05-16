@@ -48,7 +48,7 @@ class MeetingController extends Controller
         $meetings = '' ;
         $meetings_left = '';
 if ($project){
-    $meetings = Meeting::orderByDesc('meeting_date')->where('project_id' , $project->id) ->where('meeting_date', '>', now())->paginate(5);
+    $meetings = Meeting::orderByDesc('meeting_date')->where('project_id' , $project->id)->where('meeting_date', '>', now())->paginate(5);
     $meetings_left = Meeting::orderByDesc('meeting_date')->where('project_id' , $project->id) ->where('meeting_date', '<', now())->paginate(5);
 
 }

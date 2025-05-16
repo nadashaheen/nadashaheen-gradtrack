@@ -7,10 +7,10 @@
     <div class="row mt-20">
         <div class="col-lg-12">
             <div>
-                <div class="primary-color fw-bold fs-20">{{$project->title}}</div>
+                <div class="primary-color fw-bold fs-20">{{ optional($project)->title ?? 'No Project Yet'}}</div>
                 <div>
                     <p>
-                        Current Status: <span class="stauts-span">{{$project->status}}</span>
+                        Current Status: <span class="stauts-span">{{ optional($project)->status ?? 'No Project Yet'}}</span>
                     </p>
                 </div>
 
@@ -22,7 +22,7 @@
                         'Frontend Phase',
                         'Backend Phase',
                     ];
-    $currentPhaseIndex = array_search($stage->status, $phases);
+    $currentPhaseIndex = array_search(optional($stage)->status, $phases);
 
                 @endphp
 
@@ -51,6 +51,5 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
 @endsection

@@ -10,13 +10,6 @@
                         <h3 class="text-center mt-10 p-relative fs-18 primary-color fw-bold fs-sm-20 mb-sm-10">Student
                             Project List
                         </h3>
-                        <button class="btn main-btn mb-3" id="uploadBtn" data-bs-toggle="modal"
-                                data-bs-target="#addProjectModal">
-              <span class="icon-circle">
-                <i class="fa-solid fa-plus primary-color"></i>
-              </span>
-                            Add Project
-                        </button>
                     </div>
                 </div>
 
@@ -42,9 +35,23 @@
                                 </td>
                                 <td>{{$project->title}}</td>
                                 <td class="status text-success">{{$project->status}}</td>
+                                @php
+                                    if ($progress < 25) {
+                                        $color = 'bg-danger'; // أحمر
+                                    } else
+                                        if ($progress < 50) {
+                                        $color = 'bg-warning'; // أصفر
+                                    } elseif ($progress < 75) {
+                                        $color = 'bg-info'; // أزرق
+                                    } else {
+                                        $color = 'bg-success'; // أخضر
+                                    }
+                                @endphp
+
                                 <td>
                                     <div class="progress">
-                                        <div class="progress-bar bg-success" style="width: 75%">
+                                        <div class="progress-bar {{$color}}" style="width: {{$progress}}%">
+                                            {{$progress}} %
                                         </div>
                                     </div>
                                 </td>
@@ -133,39 +140,6 @@
                     <p class="p-15 mb-0">Enter the student's project details after approval.</p>
                 </div>
 
-                <div class="modal-body">
-                    <form id="addProjectForm">
-                        <div class="mb-3">
-                            <label for="projectTitle" class="form-label">Project Title</label>
-                            <input type="text" class="form-control" id="projectTitle" required
-                                   placeholder="Enter project title">
-                        </div>
-                        <div class="mb-3">
-                            <label for="studentName" class="form-label">Student Name</label>
-                            <input type="text" class="form-control" id="studentName" required
-                                   placeholder="Enter student name">
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="studentID" class="form-label">Student ID</label>
-                            <input type="text" class="form-control" id="studentID" required
-                                   placeholder="Enter student ID">
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="status" class="form-label">Project Status</label>
-                            <select class="form-select" id="status" required>
-                                <option value="">Select Project Status</option>
-                                <option value="submitted">submitted</option>
-
-                                <option value="under review">Under Review</option>
-                                <option value="rejected">Rejected</option>
-                                <option value="in progress">In Progress</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn main-btn">Add Project</button>
-                    </form>
-                </div>
             </div>
         </div>
     </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use App\Models\ProjectStage;
+use App\Models\Submission;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -42,6 +43,12 @@ class ProjectStageController extends Controller
             ->first();
 
 
+//        $submission = Submission::with(['comments' => function ($query) {
+//            $query->whereHas('user', function ($q) {
+//                $q->where('role', 'supervisor');
+//            });
+//        }])->findOrFail($submissionId);
+
         return view('supervisor.projectreview', compact('submissions' , 'project', 'final_project', 'student', 'evaluated_project', 'stage'));
     }
 
@@ -62,10 +69,10 @@ class ProjectStageController extends Controller
         $stage = DB::table('project_stages')
             ->where('project_id', $project->id)
             ->first();
-
         return view('student.projectdetail', compact('project', 'stage'));
 
     }
+
 
     /**
      * Show the form for creating a new resource.

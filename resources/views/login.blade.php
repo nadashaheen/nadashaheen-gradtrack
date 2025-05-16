@@ -36,7 +36,6 @@
         <div class="input-container d-flex align-items-center mb-15 p-10">
             <i class="fa-solid fa-lock primary-color mr-10"></i>
             <input type="password" id="password" name="password" placeholder="Password" />
-            <i id="toggle-password" class="fa-solid fa-eye-slash primary-color ml-10 toggle-password"></i>
             <!-- أيقونة العين -->
 
         </div>
@@ -44,10 +43,6 @@
 
         <button type="submit" class="btn-login primary-color p-10 fs-18 white-color">Login</button>
 
-        <p class="sign-up-link mt-10">
-            Don't have an account?
-            <a href="signup.html" class="primary-color fw-bold ">Sign Up</a>
-        <p id="login-error" style=" text-align: center;"></p>
 
         </p>
     </form>

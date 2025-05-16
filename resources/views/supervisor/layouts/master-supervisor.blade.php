@@ -24,14 +24,13 @@
             <h3 class="text-center p-relative mb-0 fs-sm-20">Hello,</h3>
             <span class="fs-20 m-lr-5 fs-sm-16">Prof. {{\Illuminate\Support\Facades\Auth::user()->name }}</span>
         </div>
-        <li class="fa-solid fa-right-from-bracket fa-fw fs-20">
+
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
-                <button type="submit" class="dropdown-item text-primary">
-                    <i class="fa fa-sign-out-alt"></i> Logout
+                <button style="font-size: 25px" type="submit" class="dropdown-item text-primary">
+                    <i  class="fa fa-sign-out"></i>
                 </button>
             </form>
-        </li>
 
     </div>
 

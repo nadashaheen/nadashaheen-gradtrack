@@ -20,7 +20,6 @@
                             <td>Name</td>
                             <td>Project Title</td>
                             <td>Status</td>
-                            <td>Progress</td>
                             <td>Action</td>
                         </tr>
                         </thead>
@@ -35,51 +34,46 @@
                                 </td>
                                 <td>{{$project->title}}</td>
                                 <td class="status text-success">{{$project->status}}</td>
-                                <td>
-                                    <div class="progress">
-                                        <div class="progress-bar bg-success" style="width: 75%">
-                                        </div>
-                                    </div>
-                                </td>
+
                                 <td  class="text-center" style="width: 20%; ">
                                     @if($project->status == 'proposed')
                                         <form method="post" action="{{route('accept' , $project->id)}}"  enctype="multipart/form-data">
                                             @csrf
                                             @method('PUT')
-                                            <button type="submit" class="btn text-success">✅ Attended</button>
+                                            <button type="submit" class="btn text-success">✅ Accept</button>
 
                                 </form>
 
                                         <form method="post" action="{{route('reject' , $project->id)}}"  enctype="multipart/form-data">
                                             @csrf
                                             @method('PUT')
-                                            <button type="submit" class="btn btn-danger">Reject</button>
+                                            <button type="submit" class="btn btn-danger">× Reject</button>
                                         </form>
 
                                     @elseif($project->status == 'accepted')
                                         <form method="post" action="{{route('accept' , $project->id)}}"  enctype="multipart/form-data">
                                             @csrf
                                             @method('PUT')
-                                            <button type="submit" class="btn text-success" disabled>✅ Attended</button>
+                                            <button type="submit" class="btn text-success" disabled>✅ Accept</button>
                                         </form>
                                         <form method="post" action="{{route('reject' , $project->id)}}"  enctype="multipart/form-data">
                                             @csrf
                                             @method('PUT')
-                                            <button type="submit" class="btn btn-danger">Reject</button>
+                                            <button type="submit" class="btn btn-danger">× Reject</button>
                                         </form>
 
                                     @elseif($project->status == 'rejected')
                                         <form method="post" action="{{route('accept' , $project->id)}}"  enctype="multipart/form-data">
                                             @csrf
                                             @method('PUT')
-                                            <button type="submit" class="btn text-success" >✅ Attended</button>
+                                            <button type="submit" class="btn text-success" >✅ Accept</button>
                                         </form>
 
 
                                         <form method="post" action="{{route('reject' , $project->id)}}"  enctype="multipart/form-data">
                                             @csrf
                                             @method('PUT')
-                                            <button type="submit" class="btn btn-danger" disabled>Reject</button>
+                                            <button type="submit" class="btn btn-danger" disabled>× Reject</button>
                                         </form>
 
                                     @endif

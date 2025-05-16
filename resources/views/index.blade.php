@@ -5,51 +5,61 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Grad Track</title>
-    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" />
-    <link rel="stylesheet" href="{{asset('css/all.min.css')}}" />
-    <link rel="stylesheet" href="{{asset('css/common.css')}}" />
-    <link rel="stylesheet" href="{{assert('css/style.css')}}" />
-    <link rel="preconnect" href="{{asset('https://fonts.googleapis.com')}}" />
-    <link rel="preconnect" href="{{asset('https://fonts.gstatic.com')}}" crossorigin />
-    <link href="{{asset('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap')}}"
-          rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/all.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/common.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+
+    <!-- Google Fonts بدون asset() -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet" />
 </head>
 
 <body>
-<script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 
-<div class="headar">
+<div class="header">
     <div class="container">
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
-                <img src="assets/logo1-1.png" alt="" class="logo" />
+                <!-- Logo -->
+                <a class="navbar-brand" href="#">
+                    <img src="{{ asset('assets/logo1-1.png') }}" alt="GradTrack Logo" class="logo" />
+                </a>
+
+                <!-- Toggle button for mobile -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa-solid fa-bars bar-icon"></i>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mb-2 mb-lg-0 d-flex justify-content-between primary-color">
-                        <li class="nav-item">
-                            <a class="nav-link active fw-400 fs-18" aria-current="page" href="#home">Home Page</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link fs-18 fw-400" href="#About Us">Featured Projects</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link fs-18 fw-400" href="#About Us">About Us</a>
-                        </li>
 
+                <!-- Collapsible menu -->
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mb-2 mb-lg-0 d-flex justify-content-between primary-color w-90">
                         <li class="nav-item">
-                            <a class="nav-link fw-400 fs-18" href="#Services">Opinions</a>
+                            <a class="nav-link active fw-400 fs-18" href="#home">Home Page</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#Contant" class="nav-link fw-400 fs-18">Contant Us</a>
+                            <a class="nav-link fw-400 fs-18" href="#featured-projects">Featured Projects</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-400 fs-18" href="#about-us">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-400 fs-18" href="#opinions">Opinions</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-400 fs-18" href="#contact-us">Contact Us</a>
                         </li>
                     </ul>
-                    <a href="{{ route('login.form') }}" class="btn main-btn">
-                        <i class="fa-solid fa-arrow-right-to-bracket p-l-r-5"></i>
-                        LOGIN
+
+                    <!-- Login Button -->
+                    <a href="{{ route('login.form') }}" class="btn main-btn ms-lg-3 mt-3 mt-lg-0">
+                        <i class="fa-solid fa-arrow-right-to-bracket p-l-r-5"></i> LOGIN
                     </a>
                 </div>
             </div>
@@ -57,8 +67,9 @@
     </div>
 </div>
 
+
 <!--start home  -->
-<div class="home-section d-flex align-items-center justify-content-center">
+<div id="home" class="home-section d-flex align-items-center justify-content-center">
     <div class="overlay"></div>
     <div class="container">
         <div class="row">
@@ -71,7 +82,7 @@
                         A platform dedicated to following up on students’ graduation
                         projects and promoting their creative ideas.
                     </p>
-                    <a href="login.html" class="btn main-btn m-10">
+                    <a href="{{ route('login.form') }}" class="btn main-btn m-10">
                         Start your graduation project
                     </a>
                 </div>
@@ -82,7 +93,7 @@
 <!-- end home -->
 
 <!-- start featured project -->
-<div class="featured-project-section p-15 m-10">
+<div id="featured-projects" class="featured-project-section p-15 m-10">
     <div class="container">
         <div class="section-title">
             <h3 class="text-center p-15 secoundary-color fw-bold mb-20">
@@ -92,7 +103,7 @@
         <div class="row m-10">
             <div class="col-lg-4">
                 <div class="card">
-                    <img src="assets/aii.jpeg" class="card-img-top" alt="..." />
+                    <img src="{{ asset('assets/aii.jpeg') }}" class="card-img-top" alt="AI Research Project" />
                     <div class="card-body">
                         <h5 class="card-title fw-bold">AI Research Project</h5>
                         <p class="card-text fs-18 m-10 fs-sm-16">
@@ -105,7 +116,7 @@
             </div>
             <div class="col-lg-4">
                 <div class="card">
-                    <img src="assets/blockchain.jpeg" class="card-img-top" alt="..." />
+                    <img src="{{ asset('assets/blockchain.jpeg') }}" class="card-img-top" alt="Blockchain Development" />
                     <div class="card-body">
                         <h5 class="card-title fw-bold">Blockchain Development</h5>
                         <p class="card-text fs-18 m-10 fs-sm-16">
@@ -118,7 +129,7 @@
             </div>
             <div class="col-lg-4">
                 <div class="card">
-                    <img src="assets/web-development.jpeg" class="card-img-top" alt="..." />
+                    <img src="{{ asset('assets/web-development.jpeg') }}" class="card-img-top" alt="Web Development Project" />
                     <div class="card-body">
                         <h5 class="card-title fw-bold">Web Development Project</h5>
                         <p class="card-text fs-18 m-10 fs-sm-16">
@@ -134,7 +145,7 @@
 <!-- end featured project -->
 
 <!-- start about -->
-<div class="about p-15 m-10">
+<div id="about-us" class="about p-15 m-10">
     <div class="container">
         <div class="section-title">
             <h3 class="text-center p-15 secoundary-color fw-bold mb-20">
@@ -143,7 +154,7 @@
         </div>
         <div class="row m-10 p-15">
             <div class="col-lg-6 about-container">
-                <img src="assets/3.jpg" alt="" class="about-img" />
+                <img src="{{ asset('assets/3.jpg') }}" alt="About GradTrack" class="about-img" />
                 <div class="d-flex align-items-center grad-icon-container fs-18">
                     <i class="fa-solid fa-graduation-cap p-l-r-5"></i>
                     <p class="mb-0">GradTrack</p>
@@ -167,18 +178,14 @@
                     <ul class="mt-20">
                         <li class="d-flex align-items-center fs-18 fs-sm-16">
                             <span>1</span>
-
-                            Improve communication between students and supervisors .
+                            Improve communication between students and supervisors.
                         </li>
                         <li class="d-flex align-items-center fs-18 fs-sm-16">
                             <span>2</span>
-
-                            provide timely updates, and streamline the graduation process.
+                            Provide timely updates, and streamline the graduation process.
                         </li>
-
                         <li class="d-flex align-items-center fs-18 fs-sm-16">
                             <span>3</span>
-
                             Enable students to monitor stages and submit deliverables on
                             time.
                         </li>
@@ -191,7 +198,7 @@
 <!-- end about -->
 
 <!-- start opinions -->
-<div class="opinions p-15 m-10">
+<div id="opinions" class="opinions p-15 m-10">
     <div class="container">
         <div class="section-title">
             <h3 class="text-center p-15 secoundary-color fw-bold mb-20">
@@ -201,7 +208,8 @@
         <div class="row p-15 align-items-center justify-content-center">
             <div class="col-lg-3">
                 <div class="card">
-                    <div class="d-flex align-items-center gap-3 justify-content-center card-header p-15">
+                    <div
+                        class="d-flex align-items-center gap-3 justify-content-center card-header p-15">
                         <i class="fa-solid fa-person"></i>
                         <div>
                             <h5 class="card-title m-0">John Doe</h5>
@@ -218,7 +226,8 @@
             </div>
             <div class="col-lg-3">
                 <div class="card">
-                    <div class="d-flex align-items-center gap-3 justify-content-center card-header p-15">
+                    <div
+                        class="d-flex align-items-center gap-3 justify-content-center card-header p-15">
                         <i class="fa-solid fa-person-dress grile-icon"></i>
                         <div>
                             <h5 class="card-title m-0">Emily Brown</h5>
@@ -235,7 +244,8 @@
             </div>
             <div class="col-lg-3">
                 <div class="card">
-                    <div class="d-flex align-items-center gap-3 justify-content-center card-header p-15">
+                    <div
+                        class="d-flex align-items-center gap-3 justify-content-center card-header p-15">
                         <i class="fa-solid fa-person"></i>
                         <div>
                             <h5 class="card-title m-0">Jane Smith</h5>
@@ -256,13 +266,14 @@
 <!-- end opinions -->
 
 <!-- start contact us -->
-<div class="contact-us">
+<div id="contact-us" class="contact-us">
     <div class="container">
-        <div class="section-title d-flex flex-column align-items-center justify-content-center p-25">
+        <div
+            class="section-title d-flex flex-column align-items-center justify-content-center p-25">
             <h2 class="text-center fw-bold fs-sm-20">
                 Are you ready to launch your project?
             </h2>
-            <a href="login.html" class="btn main-btn m-10">LOGIN NOW</a>
+            <a href="{{ route('login.form') }}" class="btn main-btn m-10">LOGIN NOW</a>
         </div>
     </div>
 </div>

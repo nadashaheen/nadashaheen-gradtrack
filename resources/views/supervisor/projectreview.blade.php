@@ -30,8 +30,8 @@
                             </div>
 
                             <div class="each-student-info d-flex align-items-center mb-2 gap-2">
-                                <p class="card-text mb-0">Submission Date:</p>
-                                <p class="card-text">2023-10-10</p>
+                                <p class="card-text mb-0">Started Date:</p>
+                                <p class="card-text">{{$project->created_at}}</p>
                             </div>
                         </div>
                     </div>
@@ -51,7 +51,7 @@
                                 @if($submission->status == 'Under Review')
 
                                 <div class="each-phase d-flex align-items-center justify-content-between">
-                                    <p class="card-text">{{ basename($submission->file_path) }}</p>
+                                 <a href="{{route('showComments' , $submission->id )}}"><p class="card-text">{{ basename($submission->file_path) }}</p></a>
                                     <div class="d-flex align-items-center gap-2">
                                         <a href="{{ asset($submission->file_path) }}" target="_blank">
                                             <i class="card-text fas fa-download text-primary fs-5" title="Download"></i>
@@ -80,8 +80,7 @@
 
                                     </div>
                                 </div>
-                                @else
-                                    <h5 class="text-primary">No new uploaded files</h5>
+
                                 @endif
                             @endforeach
 
@@ -108,21 +107,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-12">
-                    <div class="project-comment-container m-10">
-                        <div class="card p-10">
-                            <div class="card-header">
-                                <h5 class="card-title fw-bold">Supervisor Comments</h5>
-                            </div>
-                            <div class="mt-2 supervisor-textarea-container">
-                                <textarea id="supervisorReply" rows="4" class="form-control w-100"
-                                          placeholder="Write your reply here..."></textarea>
 
-                                <i class="fas fa-paper-plane fs-16 " title="Send"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+
                 <div class="col-lg-12 mb-20">
                     @include('student.layouts.masseges')
 
@@ -160,19 +147,19 @@
                                     </div>
 
                                     <div class="each-phase d-flex align-items-center mb-2 gap-2">
-                                        <form action="{{route('evaluate_final_project')}}" method="POST" class="d-flex w-100 gap-2">
+                                        <form action="{{route('evaluate_final_project')}}" method="POST" class="w-100 gap-2">
                                             @csrf
                                             <input name="score" type="number" class="form-control" placeholder="Rate (1-100)" min="0"
                                                    max="100" required/>
 
-                                            <div class="mt-2 supervisor-textarea-container">
-                                <textarea name="feedback" id="feedback" rows="4" class="form-control w-100"
+                                            <div class="supervisor-textarea-container">
+                                <textarea style="margin-top: 10px;" name="feedback" id="feedback" rows="4" class="form-control w-100"
                                           placeholder="Write your feedback here..."></textarea>
 
                                             </div>
                                             <input type="hidden" name="project_id" value="{{ $project->id }}">
 
-                                            <button type="submit" class="btn main-btn ">Done</button>
+                                            <button type="submit" class="btn main-btn " style="margin-top: 10px;float: right;margin-right: 5px;">Done</button>
                                         </form>
                                     </div>
 

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+
 class ProjectController extends Controller
 {
     /**
@@ -18,6 +19,65 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function search(Request $request)
+    {
+
+        // البحث عن مشروع الطالب باستخدام رقم الطالب
+
+
+
+
+        $userId = Auth::user()->id;
+        $studentId = $request->input('student_id');
+
+        // جلب المشاريع المرتبطة بالمستخدم مع اسم الطالب
+        $projects = DB::table('projects')
+            ->join('users', 'projects.student_id', '=', 'users.id')
+            ->where('projects.supervisor_id', $userId)
+            ->where('users.stdNo' , $studentId)
+            ->select('projects.*', 'users.name as student_name', 'users.id as student_id', 'users.stdNo as student_number')
+            ->get();
+
+        // جلب الاجتماعات مع اسم المشروع
+        $meetings = DB::table('meetings')
+            ->join('projects', 'meetings.project_id', '=', 'projects.id')
+            ->where('projects.supervisor_id', $userId)
+            ->orderByDesc('meeting_date')
+            ->select('meetings.*', 'projects.title as project_title')
+            ->paginate(5); // تأكد من أنك تستخدم paginator الصحيح في view
+
+        $stages = [
+            'Idea & Research Phase',
+            'Documentation Phase',
+            'UI/UX Phase',
+            'Frontend Phase',
+            'Backend Phase'
+        ];
+        $progress = '';
+        if ($projects) {
+
+            foreach ($projects as $project) {
+                $currentStage = DB::table('project_stages')
+                    ->where('project_id', $project->id)
+                    ->orderByDesc('id') // نفترض أن آخر إدخال هو الأحدث
+                    ->value('status');
+
+// حساب التقدم بناءً على موقع المرحلة الحالية
+                $currentIndex = array_search($currentStage, $stages);
+                $progress = $currentIndex !== false ? round((($currentIndex + 1) / count($stages)) * 100) : 0;
+
+            }
+// اجلب المرحلة الحالية من الجدول
+
+        }
+
+        if ($projects) {
+            return view('supervisor.allprojects', compact('projects', 'meetings' , 'progress'));
+        } else {
+            return redirect()->back()->with('error', 'No project found for this student ID.');
+        }
+    }
 
     public function reject($id)
     {
@@ -38,8 +98,8 @@ class ProjectController extends Controller
 
         DB::table('project_stages')->insert([
             'project_id' => $project->id,
-            'status'=> 'Idea & Research Phase',
-            'name'=>'',
+            'status' => 'Idea & Research Phase',
+            'name' => '',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -58,14 +118,13 @@ class ProjectController extends Controller
         ]);
 
 
-
         // إنشاء المشروع
         $project = new Project();
         $project->title = $validated['projectTitle'];
         $project->description = $validated['projectDescription'];
-        $project->student_id = Auth::user()->id ; // تحديد الطالب الحالي
+        $project->student_id = Auth::user()->id; // تحديد الطالب الحالي
         $project->status = 'proposed';
-        $project->supervisor_id =  $validated['supervisor_id'];
+        $project->supervisor_id = $validated['supervisor_id'];
         // أو حسب النظام
         $project->save();
 
@@ -79,9 +138,9 @@ class ProjectController extends Controller
 
         // الأفضل استخدام where مباشرة بدون all() لفعالية الاستعلام
         $project = Project::where('student_id', $student_id)->first(); // استخدم first() إذا كان لكل طالب مشروع واحد فقط
-if (!$project){
-    return redirect()->back()->with('error', 'No project found for this student.');
-}
+        if (!$project) {
+            return redirect()->back()->with('error', 'No project found for this student.');
+        }
 
         return view('student.projectdetail', compact('project'));
     }
@@ -130,11 +189,9 @@ if (!$project){
 //    }
 
 
-
     public function do_search(Request $request)
     {
         $search = $request->input('search');
-
 
 
         // جلب معرفات الطلاب المطابقين
@@ -152,7 +209,7 @@ if (!$project){
                 'projects.*',
                 'evaluations.score as final_score',
                 'evaluations.created_at as date',
-                                'users.name as student_name',
+                'users.name as student_name',
 
             )
             ->where(function ($query) use ($search, $student_ids) {
@@ -164,7 +221,8 @@ if (!$project){
         return view('supervisor.completedprojects', compact('projects'));
     }
 
-    public function completedProj(){
+    public function completedProj()
+    {
 
         $supervisorId = Auth::user()->id;
 
@@ -199,20 +257,20 @@ if (!$project){
     }
 
 
-    public function proposedProj(){
+    public function proposedProj()
+    {
 
 //        $projects = Auth::user()->projects()->where('status','proposed')->get();
         $projects = DB::table('projects')
-            ->join('users', 'projects.student_id' , 'users.id')  // ربط جدول المشاريع مع جدول الطلاب
+            ->join('users', 'projects.student_id', 'users.id')  // ربط جدول المشاريع مع جدول الطلاب
             ->where('projects.supervisor_id', Auth::user()->id)  // الحصول على المشاريع المرتبطة بالمستخدم الحالي
             ->where('projects.status', 'proposed')  // المشاريع المقترحة
-            ->select('projects.id', 'projects.title', 'users.name as student_name' , 'status')  // تحديد الأعمدة المطلوبة
+            ->select('projects.id', 'projects.title', 'users.name as student_name', 'status')  // تحديد الأعمدة المطلوبة
             ->get();
 
 
-        return view('supervisor.proposedProj', compact( 'projects' ));
+        return view('supervisor.proposedProj', compact('projects'));
     }
-
 
 
     public function index()
@@ -223,7 +281,7 @@ if (!$project){
         $projects = DB::table('projects')
             ->join('users', 'projects.student_id', '=', 'users.id')
             ->where('projects.supervisor_id', $userId)
-            ->select('projects.*', 'users.name as student_name','users.id as student_id', 'users.stdNo as student_number')
+            ->select('projects.*', 'users.name as student_name', 'users.id as student_id', 'users.stdNo as student_number')
             ->get();
 
         // جلب الاجتماعات مع اسم المشروع
@@ -231,13 +289,38 @@ if (!$project){
             ->join('projects', 'meetings.project_id', '=', 'projects.id')
             ->where('projects.supervisor_id', Auth::user()->id)
             ->orderByDesc('meeting_date')
+            ->where('meeting_date', '>', now())
             ->select('meetings.*', 'projects.title as project_title')
             ->paginate(5); // تأكد من أنك تستخدم paginator الصحيح في view
 
+        $stages = [
+            'Idea & Research Phase',
+            'Documentation Phase',
+            'UI/UX Phase',
+            'Frontend Phase',
+            'Backend Phase'
+        ];
+        $progress = '';
+        if ($projects) {
+
+            foreach ($projects as $project) {
+                $currentStage = DB::table('project_stages')
+                    ->where('project_id', $project->id)
+                    ->orderByDesc('id') // نفترض أن آخر إدخال هو الأحدث
+                    ->value('status');
+
+// حساب التقدم بناءً على موقع المرحلة الحالية
+                $currentIndex = array_search($currentStage, $stages);
+                $progress = $currentIndex !== false ? round((($currentIndex + 1) / count($stages)) * 100) : 0;
+
+            }
+// اجلب المرحلة الحالية من الجدول
+
+        }
 
 
+        return view('supervisor.allprojects', compact('projects', 'meetings' , 'progress'));
 
-        return view('supervisor.allprojects', compact('projects', 'meetings'));
     }
 
 
@@ -262,7 +345,7 @@ if (!$project){
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -273,7 +356,7 @@ if (!$project){
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -284,7 +367,7 @@ if (!$project){
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -295,8 +378,8 @@ if (!$project){
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -307,7 +390,7 @@ if (!$project){
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

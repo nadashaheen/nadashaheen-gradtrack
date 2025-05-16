@@ -15,11 +15,10 @@
             </li>
         </ul>
 
-        <form class="d-flex ms-auto mt-2 mt-md-0" role="search">
-            <div class="search-container">
-                <input class="form-control me-2 search-input" type="search" placeholder="Search for a student" />
-                <i class="fas fa-search search-icon"></i>
-            </div>
+        <form method="GET" action="{{route('projects.search')}}" class="d-flex search-form" role="search">
+
+            <input name="student_id" value="" class="form-control me-2 search" type="search" placeholder="Search for a student" aria-label="Search">
+            <button class="btn main-btn" type="submit">Search</button>
         </form>
     </div>
 </nav>

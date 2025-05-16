@@ -15,7 +15,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{$project->title ?? 'No Project Yet'}}</h5>
                                 <p class="card-text">
-                                    Current Status: <span class="stauts-span"> {{$progress ?? 'No Project Yet'}}</span>
+                                    Current Status: <span class="stauts-spa text-primary"> {{$project->status ?? 'No Project Yet'}}</span>
                                 </p>
                                 @php
                                     if ($progress < 25) {

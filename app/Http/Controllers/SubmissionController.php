@@ -34,12 +34,7 @@ class SubmissionController extends Controller
             ->where('project_id', $project->id)
             ->first();
 
-        $lastSubmission =     DB::table('submissions')->where('student_id', $id)->orderBy('id', 'desc')->get();
-
-        //        $lastSubmission = Submission::where('student_id', $id)
-//            ->orderBy('id', 'desc') ->take(3)
-//            ->get();
-
+        $lastSubmission = DB::table('submissions')->where('student_id', $id)->orderBy('id', 'desc')->get();
 
         return view('student.projectstage', compact('project', 'lastSubmission', 'evaluated_project', 'stage'));
 
