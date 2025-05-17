@@ -300,7 +300,8 @@ class ProjectController extends Controller
             'Frontend Phase',
             'Backend Phase'
         ];
-        $progress = '';
+        $progress = [];
+        $i=0 ;
         if ($projects) {
 
             foreach ($projects as $project) {
@@ -311,8 +312,8 @@ class ProjectController extends Controller
 
 // حساب التقدم بناءً على موقع المرحلة الحالية
                 $currentIndex = array_search($currentStage, $stages);
-                $progress = $currentIndex !== false ? round((($currentIndex + 1) / count($stages)) * 100) : 0;
-
+                $progress[$i] = $currentIndex !== false ? round((($currentIndex + 1) / count($stages)) * 100) : 0;
+                $i+= 1;
             }
 // اجلب المرحلة الحالية من الجدول
 

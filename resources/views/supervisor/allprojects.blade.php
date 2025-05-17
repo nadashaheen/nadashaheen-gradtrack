@@ -25,49 +25,49 @@
                         </tr>
                         </thead>
                         <tbody>
+@for($i = 0 ; $i < count($projects) ; $i++)
+    <tr>
 
-                        <!--  هاد ستايتك ولازم يتغير لداينمك لون البروقرس بار ولون نص الستيتس -->
-                        @foreach($projects as $project)
-                            <tr>
 
-                                <td>
-                                    {{ $project->student_name ?? 'No Student' }}
-                                </td>
-                                <td>{{$project->title}}</td>
-                                <td class="status text-success">{{$project->status}}</td>
-                                @php
-                                    if ($progress < 25) {
-                                        $color = 'bg-danger'; // أحمر
-                                    } else
-                                        if ($progress < 50) {
-                                        $color = 'bg-warning'; // أصفر
-                                    } elseif ($progress < 75) {
-                                        $color = 'bg-info'; // أزرق
-                                    } else {
-                                        $color = 'bg-success'; // أخضر
-                                    }
-                                @endphp
+        <td>
+            {{ $projects[$i]->student_name ?? 'No Student' }}
+        </td>
+        <td>{{$projects[$i]->title}}</td>
+        <td class="status text-success">{{$projects[$i]->status}}</td>
 
-                                <td>
-                                    <div class="progress">
-                                        <div class="progress-bar {{$color}}" style="width: {{$progress}}%">
-                                            {{$progress}} %
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    @if($project->status == 'proposed')
-                                        watting accpte
-                                    @else
-                                    <a href="{{route('viewDetails_super' , $project->student_id)}}">
-                                        View Details
-                                    </a>
-                                    @endif
-                                </td>
+        @php
+            if ($progress[$i] < 25) {
+                $color = 'bg-danger'; // أحمر
+            } else
+                if ($progress[$i] < 50) {
+                $color = 'bg-warning'; // أصفر
+            } elseif ($progress[$i] < 75) {
+                $color = 'bg-info'; // أزرق
+            } else {
+                $color = 'bg-success'; // أخضر
+            }
+        @endphp
 
-                            </tr>
+        <td>
+            <div class="progress">
+                <div class="progress-bar {{$color}}" style="width: {{$progress[$i]}}%">
+                    {{$progress[$i]}} %
+                </div>
+            </div>
+        </td>
+        <td>
+            @if($projects[$i]->status == 'proposed')
+                watting accpte
+            @else
+                <a href="{{route('viewDetails_super' , $projects[$i]->student_id)}}">
+                    View Details
+                </a>
+            @endif
+        </td>
 
-                        @endforeach
+    </tr>
+
+@endfor
 
 
                         </tbody>
